@@ -8,5 +8,10 @@ import { Component } from '@angular/core';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
+  muestraTitulo = true
+  propertyBinding = "blue"
 
+  sendValue (info:any){
+    console.log(info);
+  }
 }

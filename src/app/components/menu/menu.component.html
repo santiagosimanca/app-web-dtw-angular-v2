@@ -1,0 +1,74 @@
+<div class="container-fluid">
+<div id="carousel" class="carousel slide" data-ride="carousel">
+
+  <ol class="carousel-indicators">
+    <li *ngFor="let image of images; index as i" 
+        [attr.data-slide-to]="i" [class.active]="i === current">
+  </ol>
+
+  <div class="carousel-inner">
+    <div *ngFor="let image of images; index as i" 
+         class="carousel-item" 
+         [class.active]="i === current">
+      <img src="{{image.url}}" alt="{{image.title}}">
+    </div>
+  </div>
+
+  <a class="carousel-control-prev"
+     (click)="onPrevClick()"
+     *ngIf="images.length > 1">
+    <span class="carousel-control-prev-icon"></span>
+  </a>
+
+  <a class="carousel-control-next"
+     (click)="onNextClick()"  
+     *ngIf="images.length > 1">
+    <span class="carousel-control-next-icon"></span>
+  </a>
+  
+  <div class="carousel-caption d-none d-md-block">
+    <div *ngFor="let image of images; index as i" class="carousel-item" [class.active]="i === current">
+      <h1>{{image.title}}</h1>
+      <p>{{image.description}}</p>
+      <p>{{image.ingredients}}</p>
+      <button (click)="showIngredients = !showIngredients">Ingredientes</button>
+      
+      <div *ngIf="showIngredients">
+        <ul>
+          <li *ngFor="let ing of slides[i].ingredients">
+            <p>{{ ing }}</p>
+          </li>
+        </ul>
+      </div>
+      <button (click)="showPromotions = !showPromotions">Promociones</button>
+      <div *ngIf="showPromotions">
+        <ul>
+          <li *ngFor="let promo of slides[i].promotions">
+            <p>{{ promo }}</p>
+          </li>
+        </ul>
+      </div>
+  </div>
+</div>
+</div>
+
+<div style="display: flex;">
+  <div class="card" style="width: 18rem;" *ngFor="let item of menuItems">
+    
+    <h1 *ngIf="item.showName" [style.color]="propertyBinding">{{item.name}}</h1>
+    <img [src]="item.imageUrl">
+    
+    <div *ngFor="let ingredient of item.ingredients">
+      <input type="checkbox" (click)="onIngredientClick(item, ingredient)"> 
+      {{ ingredient }}
+    </div>
+  <button (click)="toggleItemName(item)">
+    {{item.showName ? 'Ocultar Nombre' : 'Mostrar Nombre'}}
+  </button>
+  </div>
+</div>
+
+
+
+
+
